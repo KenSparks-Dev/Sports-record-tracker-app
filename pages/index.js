@@ -2,10 +2,23 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import React from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const [name, setName] = React.useState('')
+console.log("name", name)  
+React.useEffect(() => {
+    getApi()
+  }, [])
+
+  async function getApi(){
+    const response = await fetch('api/hello')
+    const data = await response.json()
+    setName(data.name)
+  }
+
   return (
     <>
       <Head>
@@ -15,7 +28,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <p>Info about {name}</p>
         <p>Coming Soon!</p>
+        <p>Real soon</p>
       </main>
     </>
   )
