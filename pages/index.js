@@ -3,13 +3,14 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import React from 'react'
-
+import Test from '../pages/api/Test'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  //Player Name
   const [name, setName] = React.useState('')
-console.log("name", name)  
-React.useEffect(() => {
+  console.log("Name:", name)  
+  React.useEffect(() => {
     getApi()
   }, [])
 
@@ -19,6 +20,21 @@ React.useEffect(() => {
     setName(data.name)
   }
 
+  //Player's Teams
+  const [team, setTeam] = React.useState('')
+  console.log("Team:", team)
+
+  React.useEffect(() => {
+    getTeam()
+  }, [])
+
+  async function getTeam(){
+    const response = await fetch('api/teams')
+    const data = await response.json()
+    setTeam(data.teams[3])
+  }
+
+  
   return (
     <>
       <Head>
@@ -29,7 +45,7 @@ React.useEffect(() => {
       </Head>
       <main className={styles.main}>
         <p>Info about {name}</p>
-        <p>Coming Soon!</p>
+        <p>Team: {team}</p>
         <p>Real soon</p>
       </main>
     </>
