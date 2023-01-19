@@ -7,34 +7,28 @@ import Test from '../pages/api/Test'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  //Player Name
-  const [name, setName] = React.useState('')
-  console.log("Name:", name)  
+  //states
+  const [loading, setLoading] = React.useState(true)
+  const [player, setPlayer] = React.useState('')
+
+  //Effects
   React.useEffect(() => {
-    getApi()
+    getPlayer()
   }, [])
 
-  async function getApi(){
-    const response = await fetch('api/hello')
+  // //Logs
+  console.log('player:', player)
+
+  //Request functions
+
+  async function getPlayer(){
+    const response = await fetch('api/getPlayer')
     const data = await response.json()
-    setName(data.name)
+    console.log(data.first_name)
+    setPlayer(data)
+    setLoading(false)
   }
 
-  //Player's Teams
-  const [team, setTeam] = React.useState('')
-  console.log("Team:", team)
-
-  React.useEffect(() => {
-    getTeam()
-  }, [])
-
-  async function getTeam(){
-    const response = await fetch('api/teams')
-    const data = await response.json()
-    setTeam(data.teams[3])
-  }
-
-  
   return (
     <>
       <Head>
@@ -43,10 +37,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <p>Info about {name}</p>
-        <p>Team: {team}</p>
-        <p>Real soon</p>
+      <main>
+        {/* {loading && <p>Loading...</p>} */}
+        <p>Name: {player.first_name} {player.last_name}</p>
+        <p>Position: {player.position}</p>
+        {loading ? <p>Loading Team...</p> : <p>Team: {player.team}</p>}
+        {/* if loading show loading text and if else show player text */}
       </main>
     </>
   )
