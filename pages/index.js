@@ -17,9 +17,6 @@ export default function Home() {
     getPlayer(season)
   }, [season])
 
-  // //Logs
-  // console.log(player)
-
   //Request functions
   async function getPlayer(season){
     const response = await fetch(`api/getLebron?season=${season}`)
@@ -29,7 +26,7 @@ export default function Home() {
   }
 
   const handleGetSeason = () => {
-    setSeason('2003')
+    setSeason('')
   }
 
   return (
@@ -43,14 +40,7 @@ export default function Home() {
       <main className={styles.playerSection}>
           <div className={styles.player}>
             <div><Image src={LebronImg} width="100%" height="80vh" alt="Image"/></div>
-
-            {/* 
-            This shouldn't a button. It should be a select element with options for each season. 
-              React component called
-              SeasonSelector
-              imported from /components/SeasonSelector.jsx
-             */}
-             <SeasonSelector onClick={handleGetSeason}/>
+             <SeasonSelector onChange={setSeason} />
             
             <div className={styles.playerText}>
               <div className={styles.playerProfile}>
