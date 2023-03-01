@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import LebronImg from '../public/lebron.png'
+import LebronLakersImg from '../public/LA-lebron.png'
+import LebronMiamiImg from '../public/miami-bron.png'
+import LebronCleveland1 from '../public/cleveland-bron-1.jpeg'
+import LebronCleveland2 from '../public/cleveland-bron-2.jpeg'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import React from 'react'
@@ -12,6 +15,7 @@ export default function Home() {
   const [season, setSeason] = React.useState('2022')
   const [loading, setLoading] = React.useState(true)
   const [player, setPlayer] = React.useState('')
+  const [lebronImg, setLebronImg] = React.useState(LebronLakersImg)
   //Effects
   React.useEffect(() => {
     getPlayer(season)
@@ -24,6 +28,21 @@ export default function Home() {
     setPlayer(data)
     setLoading(false)
   }
+
+  const bronImg = () => {
+    if(player.team === 'Cleveland Cavaliers' && season < toString(2010)){
+      return setLebronImg(LebronCleveland1)
+    } else if(player.team === 'Cleveland Cavaliers') {
+      return setLebronImg(LebronCleveland2)
+    }
+    else if(player.team === 'Miami Heat') {
+      return setLebronImg(LebronMiamiImg)
+    } 
+    else {
+      return setLebronImg(player.team === 'Los Angeles Lakers')
+    } 
+  }
+  
 
   const handleGetSeason = () => {
     setSeason('')
@@ -39,7 +58,7 @@ export default function Home() {
       </Head>
       <main className={styles.playerSection}>
           <div className={styles.player}>
-            <div><Image src={LebronImg} width="100%" height="80vh" alt="Image"/></div>
+            <div><Image src={bronImg} width="100%" height="80vh" alt="Image"/></div>
              <SeasonSelector onChange={setSeason} />
             
             <div className={styles.playerText}>
