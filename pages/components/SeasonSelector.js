@@ -90,13 +90,13 @@ export default function SeasonSelector({onChange}) {
       onChange(season)
   }
     return (
-      <>
-      <span>Seasons: </span>
-        <select onChange={handleChangeSeason}>
+      <form>
+      <label htmlFor="season-selector" >Seasons: </label>
+        <select name="season-selector" id="season-selector" onChange={handleChangeSeason}>
             {years.map((years) => {
               return  <option key={years.year} value={years.year}>{years.season}</option>
             })}
         </select>
-      </>
+      </form>
     )
 }
