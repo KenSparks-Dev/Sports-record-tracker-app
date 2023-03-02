@@ -74,6 +74,42 @@
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
 }
+.statusBar{
+  width:100%;
+  height:20px;
+  border: 2px solid black;
+  border-radius: 5%;
+}
+#statusBarPoints{
+  width: 100%;
+  height:100%;
+  background-color: red;
+}
+
+#statusBarAssists{
+  width: 88%;
+  height:100%;
+  background-color: blue;
+}
+
+#statusBarRebounds{
+  width: 49%;
+  height:100%;
+  background-color: Green;
+}
+
+#statusBarBlocks{
+  width: 62%;
+  height:100%;
+  background-color: yellow;
+}
+
+#statusBarSteals{
+  width: 37%;
+  height:100%;
+  background-color: Purple;
+}
+
 
 .code {
   font-weight: 700;
