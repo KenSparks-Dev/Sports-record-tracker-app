@@ -13,7 +13,7 @@ export default function Home() {
   const [player, setPlayer] = useState('')
   const [loading, setLoading] = useState(true)
   const [season, setSeason] = useState('2022')
-  const years = [
+  const SEASONS = [
     { 
       season: '2022-2023', 
       year: '2022'
@@ -131,7 +131,7 @@ export default function Home() {
             <div>
               <Image src={LebronLakersImg} width="100%" height="80vh" alt="Image"/>
             </div>
-            <SeasonSelector years={years}/>
+            <SeasonSelector SEASONS={SEASONS}/>
             <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team}/>
           </div>
       </main>
