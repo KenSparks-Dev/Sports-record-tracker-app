@@ -25,7 +25,9 @@ export default function Home() {
     const response = await fetch(`api/getLebron?season=${season}`)
     const data = await response.json()
     setPlayer(data)
-    setLoading(false)
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
   }
 
     const handleGetSeason = () => {
@@ -51,7 +53,7 @@ export default function Home() {
               <Image src={LebronLakersImg} width="100%" height="80vh" alt="Image"/>
             </div>
             <SeasonSelector SEASONS={SEASONS}/>
-            <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team}/>
+            <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team} loading={loading}/>
           </div>
       </main>
     </>
