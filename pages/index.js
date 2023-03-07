@@ -52,11 +52,41 @@ export default function Home() {
               </div>
               <br />
               <ul className={styles.playerStats}>
-                <li>Points: {player.points}</li>
-                <li>Assists: {player.assists}</li>
-                <li>Rebounds: {player.rebounds}</li>
-                <li>Blocks: {player.blocks}</li>
-                <li>Steals: {player.steals}</li>
+                <li>
+                  <div className={styles.statusBar}>
+                    <div id={styles.statusBarPoints} className={styles.statusBarProgress}>
+                    </div>
+                  </div>
+                  Points: {player.points}
+                </li>
+                <li>
+                  <div className={styles.statusBar}>
+                    <div id={styles.statusBarAssists} className={styles.statusBarProgress}>
+                    </div>
+                  </div>
+                  <span>Assists: {player.assists}</span> 
+                </li>
+                <li>
+                  <div className={styles.statusBar}>
+                    <div id={styles.statusBarRebounds} className={styles.statusBarProgress}>
+                    </div>
+                  </div>
+                  <span>Rebounds: {player.rebounds}</span> 
+                </li>
+                <li>
+                  <div className={styles.statusBar}>
+                    <div id={styles.statusBarBlocks} className={styles.statusBarProgress}>
+                    </div>
+                  </div>
+                  <span>Blocks: {player.blocks}</span> 
+                </li>
+                <li>
+                  <div className={styles.statusBar}>
+                    <div id={styles.statusBarSteals}className={styles.statusBarProgress}>
+                    </div>
+                  </div>
+                  <span>Steals: {player.steals}</span> 
+                </li>
               </ul>
             </div>
           </div>
