@@ -1,23 +1,107 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import LebronImg from '../public/lebron.png'
+import LebronLakersImg from '../public/lebron.png'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import React from 'react'
+import {useState, useEffect} from 'react'
+import PlayerInfo from './components/PlayerInfo'
 import SeasonSelector from './components/SeasonSelector'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  //states
-  const [season, setSeason] = React.useState('2022')
-  const [loading, setLoading] = React.useState(true)
-  const [player, setPlayer] = React.useState('')
-  //Effects
-  React.useEffect(() => {
+  //Use State
+  const [player, setPlayer] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [season, setSeason] = useState('2022')
+  const years = [
+    { 
+      season: '2022-2023', 
+      year: '2022'
+    }, 
+    { 
+      season: '2021-2022', 
+      year: '2021'
+    },
+    { 
+      season: '2020-2021', 
+      year: '2020'
+    },
+    { 
+      season: '2019-2020', 
+      year: '2019'
+    },
+    { 
+      season: '2018-2019', 
+      year: '2018'
+    }, 
+    { 
+      season: '2017-2018', 
+      year: '2017'
+    },
+    { 
+      season: '2016-2017', 
+      year: '2016'
+    },
+    { 
+      season: '2015-2016', 
+      year: '2015'
+    },
+    { 
+      season: '2014-2015', 
+      year: '2014'
+    },
+    { 
+      season: '2013-2014', 
+      year: '2013'
+    }, 
+    { 
+      season: '2012-2013', 
+      year: '2012'
+    },
+    { 
+      season: '2011-2012', 
+      year: '2011'
+    },
+    { 
+      season: '2010-2011', 
+      year: '2010'
+    },
+    { 
+      season: '2009-2010', 
+      year: '2009'
+    },
+    { 
+      season: '2008-2009', 
+      year: '2008'
+    },
+    { 
+      season: '2007-2008', 
+      year: '2007'
+    },
+    { 
+      season: '2006-2007', 
+      year: '2006'
+    },
+    { 
+      season: '2005-2014', 
+      year: '2005'
+    }, 
+    { 
+      season: '2004-2005', 
+      year: '2004'
+    },
+    { 
+      season: '2003-2004', 
+      year: '2003'
+    },
+    ]
+
+  //Use Effect
+   useEffect(() => {
     getPlayer(season)
   }, [season])
 
-  //Request functions
+//Request functions
   async function getPlayer(season){
     const response = await fetch(`api/getLebron?season=${season}`)
     const data = await response.json()
@@ -25,8 +109,13 @@ export default function Home() {
     setLoading(false)
   }
 
-  const handleGetSeason = () => {
+    const handleGetSeason = () => {
     setSeason('')
+  }
+
+  const handleChangeSeason = (event) => {
+      let season = event.target.value
+      setSeason(season)
   }
 
   return (
@@ -38,27 +127,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.playerSection}>
-          <div className={styles.player}>
-            <div><Image src={LebronImg} width="100%" height="80vh" alt="Image"/></div>
-             <SeasonSelector onChange={setSeason} />
-            
-            <div className={styles.playerText}>
-              <div className={styles.playerProfile}>
-                {/* {loading && <p>Loading...</p>} */}
-                <p>Name: {player.firstName} {player.lastName}</p>
-                <p>Position: {player.position}</p>
-                {loading ? <p>Loading Team...</p> : <p>Team: {player.team}</p>}
-                {/* if loading show loading text and if else show player text */}
-              </div>
-              <br />
-              <ul className={styles.playerStats}>
-                <li>Points: {player.points}</li>
-                <li>Assists: {player.assists}</li>
-                <li>Rebounds: {player.rebounds}</li>
-                <li>Blocks: {player.blocks}</li>
-                <li>Steals: {player.steals}</li>
-              </ul>
+          <div className={styles.player} onChange={handleChangeSeason}>
+            <div>
+              <Image src={LebronLakersImg} width="100%" height="80vh" alt="Image"/>
             </div>
+            <SeasonSelector years={years}/>
+            <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team}/>
           </div>
       </main>
     </>
