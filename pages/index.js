@@ -50,7 +50,7 @@ export default function Home() {
       <main className={styles.playerSection}>
           <div className={styles.player} onChange={handleChangeSeason}>
             <div>
-              <Image src={LebronLakersImg} width="100%" height="80vh" alt="Image"/>
+              <Image src={LebronLakersImg} width="100%" height="80vh" alt="Image" priority />
             </div>
             <SeasonSelector SEASONS={SEASONS}/>
             <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team} loading={loading}/>
