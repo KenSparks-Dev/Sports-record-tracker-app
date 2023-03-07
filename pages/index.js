@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.css'
 import {useState, useEffect} from 'react'
 import PlayerInfo from './components/PlayerInfo'
 import SeasonSelector from './components/SeasonSelector'
+import {SEASONS} from './constants'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -13,8 +14,6 @@ export default function Home() {
   const [player, setPlayer] = useState('')
   const [loading, setLoading] = useState(true)
   const [season, setSeason] = useState('2022')
-  const years = ['Seasons', '2003', '2004', '2005', '2006']
-
 
   //Use Effect
    useEffect(() => {
@@ -51,7 +50,7 @@ export default function Home() {
             <div>
               <Image src={LebronLakersImg} width="100%" height="80vh" alt="Image"/>
             </div>
-            <SeasonSelector years={years}/>
+            <SeasonSelector SEASONS={SEASONS}/>
             <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team}/>
           </div>
       </main>
