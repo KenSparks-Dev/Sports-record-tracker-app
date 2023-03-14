@@ -1,33 +1,41 @@
-import Head from "next/head";
-import Image from "next/image";
-import LebronLakersImg from "../public/LA-lebron.png";
-import LebronMiamiImg from "../public/miami-bron.png";
-import LebronCleveland1 from "../public/cleveland-bron-1.jpeg";
-import LebronCleveland2 from "../public/cleveland-bron-2.jpeg";
-import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
-import React from "react";
-import SeasonSelector from "./components/SeasonSelector";
-const inter = Inter({ subsets: ["latin"] });
+import Head from 'next/head'
+import Image from 'next/image'
+import LebronLakersImg from '../public/LA-lebron.png'
+import LebronMiamiImg from '../public/miami-bron.png'
+import LebronCleveland1 from '../public/cleveland-bron-1.jpeg'
+import LebronCleveland2 from '../public/cleveland-bron-2.jpeg'
+import { Inter } from '@next/font/google'
+import styles from '@/styles/Home.module.css'
+import {useState, useEffect} from 'react'
+import PlayerInfo from './components/PlayerInfo'
+import SeasonSelector from './components/SeasonSelector'
+import {SEASONS} from './constants'
+const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  //states
-  const [season, setSeason] = React.useState("2022");
-  const [loading, setLoading] = React.useState(true);
-  const [player, setPlayer] = React.useState("");
+  //Use State
+  const [player, setPlayer] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [season, setSeason] = useState('2022')
 
-  //Effects
-  React.useEffect(() => {
-    getPlayer(season);
-  }, [season]);
+  //Use Effect
+   useEffect(() => {
+    getPlayer(season)
+  }, [season])
 
-  //Request functions
-  async function getPlayer(season) {
-    setLoading(true)
-    const response = await fetch(`api/getLebron?season=${season}`);
-    const data = await response.json();
-    setPlayer(data);
-    setLoading(false);
+//Request functions
+  async function getPlayer(season){
+    const response = await fetch(`api/getLebron?season=${season}`)
+    const data = await response.json()
+    setPlayer(data)
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
+  }
+
+  const handleChangeSeason = (event) => {
+      let season = event.target.value
+      setSeason(season)
   }
 
   return (
@@ -39,30 +47,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.playerSection}>
-        <div className={styles.player}>
-          {loading ? 'Loading...' : <MainImage season={season} team={player.team} loading={loading} />}
-          <SeasonSelector onChange={setSeason} />
-
-          <div className={styles.playerText}>
-            <div className={styles.playerProfile}>
-              {/* {loading && <p>Loading...</p>} */}
-              <p>
-                Name: {player.firstName} {player.lastName}
-              </p>
-              <p>Position: {player.position}</p>
-              {loading ? <p>Loading Team...</p> : <p>Team: {player.team}</p>}
-              {/* if loading show loading text and if else show player text */}
+          <div className={styles.player} onChange={handleChangeSeason}>
+            <div>
+            {loading ? 'Loading...' : <MainImage season={season} team={player.team} loading={loading} />}
             </div>
-            <br />
-            <ul className={styles.playerStats}>
-              <li>Points: {player.points}</li>
-              <li>Assists: {player.assists}</li>
-              <li>Rebounds: {player.rebounds}</li>
-              <li>Blocks: {player.blocks}</li>
-              <li>Steals: {player.steals}</li>
-            </ul>
+            <SeasonSelector SEASONS={SEASONS}/>
+            <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team} loading={loading}/>
           </div>
-        </div>
       </main>
     </>
   );
