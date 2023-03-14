@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import LebronLakersImg from '../public/lebron.png'
+import LebronLakersImg from '../public/LA-lebron.png'
+import LebronMiamiImg from '../public/miami-bron.png'
+import LebronCleveland1 from '../public/cleveland-bron-1.jpeg'
+import LebronCleveland2 from '../public/cleveland-bron-2.jpeg'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import {useState, useEffect} from 'react'
@@ -30,10 +33,6 @@ export default function Home() {
     }, 500)
   }
 
-    const handleGetSeason = () => {
-    setSeason('')
-  }
-
   const handleChangeSeason = (event) => {
       let season = event.target.value
       setSeason(season)
@@ -50,12 +49,32 @@ export default function Home() {
       <main className={styles.playerSection}>
           <div className={styles.player} onChange={handleChangeSeason}>
             <div>
-              <Image src={LebronLakersImg} width="100%" height="80vh" alt="Image" priority />
+            {loading ? 'Loading...' : <MainImage season={season} team={player.team} loading={loading} />}
             </div>
             <SeasonSelector SEASONS={SEASONS}/>
             <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team} loading={loading}/>
           </div>
       </main>
     </>
-  )
+  );
 }
+
+const MainImage = ({ season, team }) => {
+  const seasonNum = parseInt(season);
+  let image = LebronLakersImg;
+  if (team === "Cleveland Cavaliers" && seasonNum > 2014) {
+    image = LebronCleveland2;
+  }
+  if (team === "Cleveland Cavaliers" && seasonNum < 2010 ) {
+    image = LebronCleveland1;
+  }
+  if (team === "Miami Heat") {
+    image = LebronMiamiImg;
+  }
+
+  return (
+    <div>
+      <Image src={image} width="100%" height="80vh" alt="Image" />
+    </div>
+  );
+};
