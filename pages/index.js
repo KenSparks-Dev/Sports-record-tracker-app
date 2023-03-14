@@ -1,51 +1,33 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import LebronLakersImg from '../public/LA-lebron.png'
-import LebronMiamiImg from '../public/miami-bron.png'
-import LebronCleveland1 from '../public/cleveland-bron-1.jpeg'
-import LebronCleveland2 from '../public/cleveland-bron-2.jpeg'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import React from 'react'
-import SeasonSelector from './components/SeasonSelector'
-const inter = Inter({ subsets: ['latin'] })
+import Head from "next/head";
+import Image from "next/image";
+import LebronLakersImg from "../public/LA-lebron.png";
+import LebronMiamiImg from "../public/miami-bron.png";
+import LebronCleveland1 from "../public/cleveland-bron-1.jpeg";
+import LebronCleveland2 from "../public/cleveland-bron-2.jpeg";
+import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.css";
+import React from "react";
+import SeasonSelector from "./components/SeasonSelector";
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   //states
-  const [season, setSeason] = React.useState('2022')
-  const [loading, setLoading] = React.useState(true)
-  const [player, setPlayer] = React.useState('')
-  const [lebronImg, setLebronImg] = React.useState(LebronLakersImg)
+  const [season, setSeason] = React.useState("2022");
+  const [loading, setLoading] = React.useState(true);
+  const [player, setPlayer] = React.useState("");
+
   //Effects
   React.useEffect(() => {
-    getPlayer(season)
-  }, [season])
+    getPlayer(season);
+  }, [season]);
 
   //Request functions
-  async function getPlayer(season){
-    const response = await fetch(`api/getLebron?season=${season}`)
-    const data = await response.json()
-    setPlayer(data)
-    setLoading(false)
-  }
-
-  const bronImg = () => {
-    if(player.team === 'Cleveland Cavaliers' && season < toString(2010)){
-      return setLebronImg(LebronCleveland1)
-    } else if(player.team === 'Cleveland Cavaliers') {
-      return setLebronImg(LebronCleveland2)
-    }
-    else if(player.team === 'Miami Heat') {
-      return setLebronImg(LebronMiamiImg)
-    } 
-    else {
-      return setLebronImg(player.team === 'Los Angeles Lakers')
-    } 
-  }
-  
-
-  const handleGetSeason = () => {
-    setSeason('')
+  async function getPlayer(season) {
+    setLoading(true)
+    const response = await fetch(`api/getLebron?season=${season}`);
+    const data = await response.json();
+    setPlayer(data);
+    setLoading(false);
   }
 
   return (
@@ -57,29 +39,51 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.playerSection}>
-          <div className={styles.player}>
-            <div><Image src={bronImg} width="100%" height="80vh" alt="Image"/></div>
-             <SeasonSelector onChange={setSeason} />
-            
-            <div className={styles.playerText}>
-              <div className={styles.playerProfile}>
-                {/* {loading && <p>Loading...</p>} */}
-                <p>Name: {player.firstName} {player.lastName}</p>
-                <p>Position: {player.position}</p>
-                {loading ? <p>Loading Team...</p> : <p>Team: {player.team}</p>}
-                {/* if loading show loading text and if else show player text */}
-              </div>
-              <br />
-              <ul className={styles.playerStats}>
-                <li>Points: {player.points}</li>
-                <li>Assists: {player.assists}</li>
-                <li>Rebounds: {player.rebounds}</li>
-                <li>Blocks: {player.blocks}</li>
-                <li>Steals: {player.steals}</li>
-              </ul>
+        <div className={styles.player}>
+          {loading ? 'Loading...' : <MainImage season={season} team={player.team} loading={loading} />}
+          <SeasonSelector onChange={setSeason} />
+
+          <div className={styles.playerText}>
+            <div className={styles.playerProfile}>
+              {/* {loading && <p>Loading...</p>} */}
+              <p>
+                Name: {player.firstName} {player.lastName}
+              </p>
+              <p>Position: {player.position}</p>
+              {loading ? <p>Loading Team...</p> : <p>Team: {player.team}</p>}
+              {/* if loading show loading text and if else show player text */}
             </div>
+            <br />
+            <ul className={styles.playerStats}>
+              <li>Points: {player.points}</li>
+              <li>Assists: {player.assists}</li>
+              <li>Rebounds: {player.rebounds}</li>
+              <li>Blocks: {player.blocks}</li>
+              <li>Steals: {player.steals}</li>
+            </ul>
           </div>
+        </div>
       </main>
     </>
-  )
+  );
 }
+
+const MainImage = ({ season, team }) => {
+  const seasonNum = parseInt(season);
+  let image = LebronLakersImg;
+  if (team === "Cleveland Cavaliers" && seasonNum > 2014) {
+    image = LebronCleveland2;
+  }
+  if (team === "Cleveland Cavaliers" && seasonNum < 2010 ) {
+    image = LebronCleveland1;
+  }
+  if (team === "Miami Heat") {
+    image = LebronMiamiImg;
+  }
+
+  return (
+    <div>
+      <Image src={image} width="100%" height="80vh" alt="Image" />
+    </div>
+  );
+};

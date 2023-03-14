@@ -1,7 +1,7 @@
 import React, { useState }from 'react';
 
 export default function SeasonSelector({onChange}) {
-    const years = ['Seasons', '2003', '2004', '2005', '2006']
+    const years = ['Seasons', '2003', '2004', '2005', '2006', '2011','2019']
     const [chosenSeason, setChosenSeason] = useState('')
     const handleChangeSeason = (event) => {
       let season = event.target.value
