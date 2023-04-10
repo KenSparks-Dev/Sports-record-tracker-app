@@ -1,40 +1,40 @@
-import Head from 'next/head'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import {useState, useEffect} from 'react'
-import PlayerInfo from './components/PlayerInfo'
-import SeasonSelector from './components/SeasonSelector'
-import {SEASONS} from './constants'
-import MainImage from './components/MainImage'
+import Head from "next/head";
+import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.css";
+import { useState, useEffect } from "react";
+import PlayerInfo from "./components/PlayerInfo";
+import SeasonSelector from "./components/SeasonSelector";
+import { SEASONS } from "./components/constants";
+import MainImage from "./components/MainImage";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   //Use State
-  const [player, setPlayer] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [season, setSeason] = useState('2022')
-  const [bgColor, setBgColor] = useState('purple')
+  const [player, setPlayer] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [season, setSeason] = useState("2022");
+  const [bgColor, setBgColor] = useState("purple");
 
   //Use Effect
-   useEffect(() => {
-    getPlayer(season)
-  }, [season])
+  useEffect(() => {
+    getPlayer(season);
+  }, [season]);
 
-//Request functions
-  async function getPlayer(season){
-    const response = await fetch(`api/getLebron?season=${season}`)
-    const data = await response.json()
-    setPlayer(data)
+  //Request functions
+  async function getPlayer(season) {
+    const response = await fetch(`api/getLebron?season=${season}`);
+    const data = await response.json();
+    setPlayer(data);
     setTimeout(() => {
-      setLoading(false)
-    }, 500)
+      setLoading(false);
+    }, 500);
   }
 
   const handleChangeSeason = (event) => {
-      let season = event.target.value
-      setSeason(season)
-  }
+    let season = event.target.value;
+    setSeason(season);
+  };
   return (
     <>
       <Head>
@@ -43,14 +43,33 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.playerSection} style={{backgroundColor: bgColor}} onChange={handleChangeSeason}>
-          <div className={styles.player}>
-            <div>
-            {loading ? 'Loading...' : <MainImage season={season} team={player.team} loading={loading} />}
-            </div>
-            <SeasonSelector SEASONS={SEASONS}/>
-            <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team} loading={loading}/>
+      <main
+        className={styles.playerSection}
+        style={{ backgroundColor: bgColor }}
+        onChange={handleChangeSeason}
+      >
+        <div className={styles.player}>
+          <div>
+            {loading ? (
+              "Loading..."
+            ) : (
+              <MainImage season={season} team={player.team} loading={loading} />
+            )}
           </div>
+          <SeasonSelector SEASONS={SEASONS} />
+          <PlayerInfo
+            firstName={player.firstName}
+            lastName={player.lastName}
+            position={player.position}
+            points={player.points}
+            assists={player.assists}
+            rebounds={player.rebounds}
+            blocks={player.blocks}
+            steals={player.steals}
+            team={player.team}
+            loading={loading}
+          />
+        </div>
       </main>
     </>
   );
