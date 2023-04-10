@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IMAGES } from "../../constants";
+import { IMAGES } from "./constants";
 export default function MainImage({ season, team }) {
   const seasonNum = parseInt(season);
   let image = IMAGES.lakers;

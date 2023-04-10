@@ -2,10 +2,10 @@ import Head from "next/head";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
-import PlayerInfo from "./components/PlayerInfo";
-import SeasonSelector from "./components/SeasonSelector";
-import { SEASONS } from "../constants";
-import MainImage from "./components/MainImage";
+import PlayerInfo from "../components/PlayerInfo";
+import SeasonSelector from "../components/SeasonSelector";
+import { SEASONS } from "../components/constants";
+import MainImage from "../components/MainImage";
 
 const inter = Inter({ subsets: ["latin"] });
 
