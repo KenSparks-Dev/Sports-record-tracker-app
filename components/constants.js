@@ -1,7 +1,8 @@
+
 export const SEASONS = [
     { 
       season: '2022-2023', 
-      year: '2022'
+      year: '2022',
     }, 
     { 
       season: '2021-2022', 
@@ -80,3 +81,13 @@ export const SEASONS = [
       year: '2003'
     },
     ]
+
+
+    //Images
+    export const IMAGES =
+        {
+          lakers: '/LA-lebron.png',
+          miami: '/miami-bron.png',
+          cleveland1: '/cleveland-bron-1.jpeg',
+          cleveland2: '/cleveland-bron-2.jpeg',
+        }
