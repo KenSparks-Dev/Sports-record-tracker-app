@@ -85,8 +85,8 @@ export const SEASONS = [
     //Images
     export const IMAGES =
         {
-          lakers: '/../public/LA-lebron.png',
-          miami: '/../public/miami-bron.png',
-          cleveland1: '/../public/cleveland-bron-1.jpeg',
-          cleveland2: '/../public/cleveland-bron-2.jpeg',
+          lakers: '/LA-lebron.png',
+          miami: '/miami-bron.png',
+          cleveland1: '/cleveland-bron-1.jpeg',
+          cleveland2: '/cleveland-bron-2.jpeg',
         }
