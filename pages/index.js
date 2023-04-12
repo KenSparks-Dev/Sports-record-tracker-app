@@ -41,9 +41,10 @@ export default function Home() {
     let season = event.target.value;
     setSeason(season);
   };
+
+  const playerData = [ ];
   return (
     <>
-      {/* TODO - Get the head out of the index file. So that we  don't have to look at it. because it's not important */}
       <HeadAttributes/>
       {/* TODO  in order to get the background color to update with the image, you have two choices:
         A - 
@@ -65,33 +66,11 @@ export default function Home() {
       <main className={styles.playerSection}>
           <div className={styles.player} onChange={handleChangeSeason}>
             <div>
-            {loading ? 'Loading...' : <MainImage season={season} team={player.team} loading={loading} />}
+              {loading ? 'Loading...' : <MainImage season={season} team={player.team} loading={loading} />}
             </div>
-            <SeasonSelector SEASONS={SEASONS}/>
-            {/* TODO
-              playerinfo should just accept a "player" and loading. Inside playerinfo
-              you'll get the values you want
-              This is seperating concerns.
-
-              Does the index file care that player info has a firstName... 
-              or 
-              does it care that it has a "player"
-             */}
-            <PlayerInfo firstName={player.firstName} lastName={player.lastName} position={player.position} points={player.points} assists={player.assists} rebounds={player.rebounds} blocks={player.blocks} steals={player.steals} team={player.team} loading={loading}/>
+              <SeasonSelector SEASONS={SEASONS} />
+              <PlayerInfo player={player} loading={loading}/>
           </div>
-          <SeasonSelector SEASONS={SEASONS} />
-          <PlayerInfo
-            firstName={player.firstName}
-            lastName={player.lastName}
-            position={player.position}
-            points={player.points}
-            assists={player.assists}
-            rebounds={player.rebounds}
-            blocks={player.blocks}
-            steals={player.steals}
-            team={player.team}
-            loading={loading}
-          />
       </main>
     </>
   );
