@@ -8,19 +8,16 @@ import { SEASONS } from "../components/constants";
 import MainImage from "../components/MainImage";
 import HeadAttributes from "./HeadAttributes";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export default function Home() {
   //Use State
   const [player, setPlayer] = useState("");
   const [loading, setLoading] = useState(true);
   const [season, setSeason] = useState("2022");
-  const [bgColor, setBgColor] = useState("purple");
 
   // matching season you'll have to figure out
-  const seasonPlusHello = season + " hello"
-  console.log('seasonPlusHello: ', seasonPlusHello);
-
+  const matchingSeason = SEASONS.find((seasonObj) => seasonObj.year === season);
+  const hasMatchingSeason = SEASONS.some((seasonObj) => seasonObj.year === season);
+  const allMatchingSeasons = SEASONS.every((seasonObj) => seasonObj.year === season);
 
   //Use Effect
   useEffect(() => {
@@ -42,35 +39,29 @@ export default function Home() {
     setSeason(season);
   };
 
-  const playerData = [ ];
   return (
     <>
-      <HeadAttributes/>
-      {/* TODO  in order to get the background color to update with the image, you have two choices:
-        A - 
-          step 1 - add a color to each season in the seasons array
-          step 2 - find the matching season (matchingSeason) from the array, based on the "selected season"
-          step 3 - put that matchingSeason into the <main>...</main> backgroundColor
-        B - 
-          steps 1-3 = do something kinda like we did for main image
-          in this case we'll have a component called <Main>{children}</Main>
-          inside "Main" we'll do logic that's a lot like what we did in MainImage
-          the difference is you'll learn how to render children
-        C - :devin would do this one:
-          Sort of a combo of the two
-          step 1 - add the image and bgColor to the seasons array
-          step 2 - find the "matchingSeason" <--- 
-          step 3 - let both Main and MainImage use the "matchingSeason" to render the correct "thing"
-            *note: that's matchingSeason.backgroundColor || matchingSeason.imageUrl
-      */}
-      <main className={styles.playerSection}>
-          <div className={styles.player} onChange={handleChangeSeason}>
-            <div>
-              {loading ? 'Loading...' : <MainImage season={season} team={player.team} loading={loading} />}
-            </div>
-              <SeasonSelector SEASONS={SEASONS} />
-              <PlayerInfo player={player} loading={loading}/>
+      <HeadAttributes />
+      <main
+        data-test="hello"
+        className={styles.playerSection}
+        style={{ backgroundColor: matchingSeason.bgColor, color: ['navy', 'red'].includes(matchingSeason.bgColor) ? 'white' : 'black'}}
+      >
+        <div className={styles.player} onChange={handleChangeSeason}>
+          <div>
+            {loading ? (
+              "Loading..."
+            ) : (
+              <MainImage
+                season={matchingSeason}
+                team={player.team}
+                loading={loading}
+              />
+            )}
           </div>
+          <SeasonSelector SEASONS={SEASONS} />
+          <PlayerInfo player={player} loading={loading} />
+        </div>
       </main>
     </>
   );

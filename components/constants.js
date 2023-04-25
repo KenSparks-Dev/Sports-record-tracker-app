@@ -3,50 +3,50 @@ export const SEASONS = [
     { 
       season: '2022-2023', 
       year: '2022',
-      bgColor: 'purple',
+      bgColor: 'yellow',
       imageUrl: '/LA-lebron.png'
     }, 
     { 
       season: '2021-2022', 
       year: '2021',
-      bgColor: 'purple',
+      bgColor: 'yellow',
       imageUrl: '/LA-lebron.png'    
     },
     { 
       season: '2020-2021', 
       year: '2020',
-      bgColor: 'purple',
+      bgColor: 'yellow',
       imageUrl: '/LA-lebron.png'    
     },
     { 
       season: '2019-2020', 
       year: '2019',
-      bgColor: 'purple',
+      bgColor: 'yellow',
       imageUrl: '/LA-lebron.png'    
     },
     { 
       season: '2018-2019', 
       year: '2018',
       bgColor: 'navy',
-      imageUrl:  '/cleveland-bron-2.jpeg'   
+      imageUrl: '/cleveland-bron-2.jpeg'   
     }, 
     { 
       season: '2017-2018', 
       year: '2017',
       bgColor: 'navy',
-      imageUrl:  '/cleveland-bron-2.jpeg'   
+      imageUrl: '/cleveland-bron-2.jpeg'   
     },
     { 
       season: '2016-2017', 
       year: '2016',
       bgColor: 'navy',
-      imageUrl:  '/cleveland-bron-2.jpeg'   
+      imageUrl: '/cleveland-bron-2.jpeg'   
     },
     { 
       season: '2015-2016', 
       year: '2015',
       bgColor: 'navy',
-      imageUrl:  '/cleveland-bron-2.jpeg'   
+      imageUrl: '/cleveland-bron-2.jpeg'   
     },
     { 
       season: '2014-2015', 
@@ -121,13 +121,3 @@ export const SEASONS = [
       imageUrl: '/cleveland-bron-1.jpeg'    
     },
     ]
-
-
-    //Images
-    export const IMAGES =
-        {
-          lakers: '/LA-lebron.png',
-          miami: '/miami-bron.png',
-          cleveland1: '/cleveland-bron-1.jpeg',
-          cleveland2: '/cleveland-bron-2.jpeg',
-        }
